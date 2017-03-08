@@ -5,7 +5,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Project {
-	
+	// Adding comment to get travis running
 	private int id;
 	@Id
 	public int getId() {
