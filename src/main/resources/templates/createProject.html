@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Suh Dude Home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<form action="#" th:action="@{/home}">
+		<p><input type="submit" value  = "HOME"/>
+	</form>
+	<form action="#" th:action="@{/create}">
+                <p>Project Name: <input type="text" th:name="name" th:value="*{name}" /></p>
+                <p>Max Number of Students: <input type="text" th:name="maxStudents" th:value="*{maxStudents}" /></p>
+                <p>Prof: <input type="text" th:name="prof" th:value="*{prof}" /></p>
+                <p><input type="submit" value="Create" />
+    </form>
+</body>
+</html>

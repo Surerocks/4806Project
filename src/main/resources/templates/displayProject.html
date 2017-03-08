@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div th:if="${not #lists.isEmpty(projects)}">
+		<form action="#" th:action="@{/home}">
+			<p><input type="submit" value  = "HOME"/>
+		</form>
+    	<p>Project List:</p>
+        <p th:text="${projects.size()}"></p>
+	    <table>
+	        <tr th:each="project : ${projects}">
+	            <td th:text="${project.name}"></td>
+	            <td th:text="${project.id}"></td>
+	            <td th:text="${project.prof}"></td>
+	            <td th:text="${project.maxStudents}"></td>
+	            <td>
+	            	<form action="#" th:action="@{/viewProject(projectId=${project.id})}">
+                		<input type="submit" value="View" />
+        			</form>
+	            </td>
+	            <td>
+	            	<form action="#" th:action="@{/applyForProject(projectId=${project.id})}">
+                		<input type="submit" value="Apply" />
+        			</form>
+	            </td>
+	            <td>
+	            	<form action="#" th:action="@{/deleteProject(projectId=${project.id})}">
+                		<input type="submit" value="Delete" />
+        			</form>
+	            </td>
+	            
+	        </tr>
+	    </table>
+	</div>
+</body>
+</html>
