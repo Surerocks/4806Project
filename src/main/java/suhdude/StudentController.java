@@ -25,4 +25,9 @@ public class StudentController {
 		repo.save(s);
 		return "hello";
 	}
+	
+	@RequestMapping(value="/createStudents",method=RequestMethod.GET)
+	public String createStudents(){
+		return "createStudent";
+	}
 }

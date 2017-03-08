@@ -8,10 +8,9 @@
 	<form action="#" th:action="@{/}">
 		<input type="submit" value  = "HOME"/>
 	</form>
-	<form action="#" th:action="@{/createProject}">
-                <p>Project Name: <input type="text" th:name="name" th:value="*{name}" /></p>
-                <p>Max Number of Students: <input type="text" th:name="max" th:value="*{max}" /></p>
+	<form action="#" th:action="@{/createProfessor}">
                 <p>Prof: <input type="text" th:name="profName" th:value="*{profName}" /></p>
+                <p>email: <input type="text" th:name="email" th:value="*{email}" /></p>
                 <input type="submit" value="Create" />
     </form>
 </body>

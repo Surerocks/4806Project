@@ -1,5 +1,6 @@
 package suhdude;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -35,7 +36,33 @@ public class ProjectController {
         return "hello";
     }
     
- 
+    @RequestMapping(value="/displayProjects", method= RequestMethod.GET)
+    public String getProjects(Model model){
+    	Iterator<Project> projs = repo.findAll().iterator();
+    	List<Project> projects = new ArrayList<Project>();
+    	while(projs.hasNext()){
+    		projects.add(projs.next());
+    	}
+    	model.addAttribute("projects",projects);
+    	return "displayProject";
+    }
+    
+    @RequestMapping(value="/createProjects", method= RequestMethod.GET)
+    public String getCreatePage(){
+    	return "createProject";
+    }
+    
+    @RequestMapping(value="/viewProject", method= RequestMethod.GET)
+    public String getProjects(@RequestParam(value="projectId") Integer id,
+					Model model){
+    	List<Project> project = repo.findById(id);
+    	if(project.isEmpty()){
+    		return "error";
+    	}
+    	model.addAttribute("project",project.get(0));
+    	return "project";
+    }
+    
     @RequestMapping(value="/createProject",method=RequestMethod.GET)
     public String createProject(@RequestParam(value="name") String name,
     				@RequestParam(value="max") int maxStudents,
@@ -80,6 +107,18 @@ public class ProjectController {
     	} else {
     		return "error";
     	}
+    }
+    
+    @RequestMapping(value="/deleteProject",method=RequestMethod.GET)
+    public String deleteProject(@RequestParam(value="projectId") int projectId,
+			Model model){
+    	List<Project> projects = repo.findById(projectId);
+    	if(projects.isEmpty()){
+    		return "error";
+    	}
+    	Project p = projects.get(0);
+    	repo.delete(p);
+    	return "hello";
     }
     
     

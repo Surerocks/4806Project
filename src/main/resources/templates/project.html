@@ -5,11 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<form action="#" th:action="@{/home}">
-		<p><input type="submit" value  = "HOME"/>
+	<form action="#" th:action="@{/}">
+		<input type="submit" value  = "HOME"/>
 	</form>
     <p th:text="'Project name: ' + ${project.name}"></p>
-    <p th:text="'Description: ' + ${project.description}"></p>
     <p th:text="'Prof: ' + ${project.prof}"></p>
     <p th:text="'Students: ' + ${project.name}"></p>
     <p th:text="'Max Students: ' + ${project.maxStudents}"></p>
@@ -20,9 +19,9 @@
 		        </tr>
 		</table>
 	</div>
-	<div th:if="${not #lists.isEmpty(project.studentsApplied)}">
+	<div th:if="${not #lists.isEmpty(project.applicants)}">
 		<table>
-		        <tr th:each="studentApplied : ${project.studentsApplied}">
+		        <tr th:each="studentApplied : ${project.applicants}">
 		            <td th:text="${studentApplied.name}"></td>     
 		        </tr>
 		</table>

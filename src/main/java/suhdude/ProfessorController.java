@@ -21,4 +21,9 @@ public class ProfessorController {
 		repo.save(p);
 		return "hello";
 	}
+	
+	@RequestMapping(value="/createProfessors",method=RequestMethod.GET)
+	public String createProfs(){
+		return "createProf";
+	}
 }
