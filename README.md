@@ -2,7 +2,7 @@ SYSC 4806 Project - Group Suh Dude
 
 Team Members:
 Patrick Millar - 
-Niko Robidoux - 
+Niko Robidoux -   100939014	
 Craig Shorrocks - 100887781
 Marc TeBoekhorst – 100925246
 
