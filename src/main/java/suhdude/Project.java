@@ -1,13 +1,7 @@
 package suhdude;
 
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Project {
@@ -73,7 +67,15 @@ public class Project {
 	}
 
 	public boolean addApplicant(Student s){
-		if(students.size() < maxStudents){
+		if(s.isGroupLeader()) {
+		    if (students.size() + s.getGroup().size() <= maxStudents) {
+                for (Student member : s.getGroup()) {
+                    applicants.add(member);
+                }
+                return true;
+            }
+        }
+	    if(students.size() < maxStudents){
 			applicants.add(s);
 			return true;
 		}
@@ -82,11 +84,32 @@ public class Project {
 	
 	public boolean approveApplicant(Student s){
 		if(applicants.contains(s)){
+		    if(s.isGroupLeader()) {
+                for (Student member : s.getGroup()) {
+                	applicants.remove(member);
+                    students.add(member);
+                }
+                return true;
+            }
 			applicants.remove(s);
 			students.add(s);
 			return true;
 		}
 		return false;
-	}	
+	}
+
+	public boolean withdrawApplicant(Student s) {
+		if(applicants.contains(s)) {
+		    if(s.isGroupLeader()) {
+		        for (Student member : s.getGroup()) {
+		            applicants.remove(member);
+                }
+                return true;
+            }
+			applicants.remove(s);
+			return true;
+		}
+		return false;
+	}
 
 }

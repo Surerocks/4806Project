@@ -2,6 +2,8 @@ package suhdude;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Student {
@@ -10,7 +12,9 @@ public class Student {
 	private int studentNo;
 	private String name;
 	private String email;
-	
+	private List<Student> group;
+	private boolean groupLeader = false;
+
 	public Student(){
 		
 	}
@@ -45,6 +49,34 @@ public class Student {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
+
+	public boolean isGroupLeader() {
+		return groupLeader;
+	}
+
+	public void createGroup(Student s) {
+		group = new ArrayList<>();
+		groupLeader = true;
+		group.add(this);
+		group.add(s);
+	}
+
+	public boolean addToGroup(Student s) {
+		if(!group.contains(s)) {
+			group.add(s);
+			return true;
+		}
+		return false;
+	}
+
+	public void disbandGroup() {
+		group.clear();
+		groupLeader = false;
+	}
+
+	public List<Student> getGroup() {
+		return group;
+	}
+
+	public void setGroup(List<Student> g) { group = g; }
 }
