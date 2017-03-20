@@ -1,14 +1,15 @@
 package suhdude;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Student {
 
-	
 	private int studentNo;
 	private String name;
 	private String email;
@@ -56,11 +57,14 @@ public class Student {
 
 	public void createGroup(Student s) {
 		group = new ArrayList<>();
-		groupLeader = true;
+		this.groupLeader = true;
 		group.add(this);
 		group.add(s);
 	}
 
+	public void setGroupLeader(boolean b) {
+		this.groupLeader = b;
+	}
 	public boolean addToGroup(Student s) {
 		if(!group.contains(s)) {
 			group.add(s);
@@ -74,9 +78,10 @@ public class Student {
 		groupLeader = false;
 	}
 
+	@OneToMany(cascade = CascadeType.ALL)
 	public List<Student> getGroup() {
 		return group;
 	}
 
-	public void setGroup(List<Student> g) { group = g; }
+	public void setGroup(ArrayList<Student> g) { this.group = g; }
 }
