@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class ProjectController {
 	private ProjectRepository repo;
-	private StudentRepository studentRepo;
-	private ProfessorRepository profRepo;
+	private UserRepository userRepo;
 
     @Autowired
     public void setRepo(ProjectRepository repo){
@@ -21,19 +20,14 @@ public class ProjectController {
     }
     
     @Autowired
-    public void setStudentRepo(StudentRepository studentRepo){
-        this.studentRepo = studentRepo;
-    }
-    
-    @Autowired
-    public void setProfRepo(ProfessorRepository profRepo){
-        this.profRepo = profRepo;
+    public void setUserRepo(UserRepository userRepo){
+        this.userRepo = userRepo;
     }
 
     @RequestMapping(value="/", method= RequestMethod.GET)
     public String getHome(Model model){
-    	// TODO: Just return the home page (which is static)
-        return "hello";
+    	// Just return the login page
+        return "login";
     }
     
     @RequestMapping(value="/displayProjects", method= RequestMethod.GET)
@@ -69,11 +63,11 @@ public class ProjectController {
     				@RequestParam(value="profName") String profName,
     				Model model){
     	// Get the prof that is referenced or create a new one
-    	List<Professor> profs = profRepo.findByName(profName);
-    	if(profs.isEmpty()){
+    	List<User> profs = userRepo.findByUsername(profName);
+    	if(profs.isEmpty() && !(profs.get(0) instanceof Professor)){
     		return "error";
     	}
-    	Professor prof = profs.get(0);
+    	Professor prof = (Professor) profs.get(0);
     	Project p = new Project();
     	p.setName(name);
     	p.setProf(prof);
@@ -86,14 +80,14 @@ public class ProjectController {
     
     @RequestMapping(value="/applyForProject",method=RequestMethod.GET)
     public String applyForProject(@RequestParam(value="projectId") int projectId,
-				@RequestParam(value="studentNo") int studentNo,
+				@RequestParam(value="studentName") String studentName,
 				Model model){
-    	List<Student> students = studentRepo.findByStudentNo(studentNo);
-    	if(students.isEmpty()){
+    	List<User> students = userRepo.findByUsername(studentName);
+    	if(students.isEmpty() && !(students.get(0) instanceof Student)){
     		// TODO: return Error message
     		return "error";
     	}
-    	Student st = students.get(0);
+    	Student st = (Student) students.get(0);
     	List<Project> projects = repo.findById(projectId);
     	if(projects.isEmpty()){
     		return "error";
