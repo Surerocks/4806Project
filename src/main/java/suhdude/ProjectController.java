@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 public class ProjectController {
 	private ProjectRepository repo;
 	private UserRepository userRepo;
+	private AuthenticationController auth;
+	
+	@Autowired
+	public void setAuth(AuthenticationController auth){
+		this.auth = auth;
+	}
 
     @Autowired
     public void setRepo(ProjectRepository repo){
@@ -25,9 +31,13 @@ public class ProjectController {
     }
 
     @RequestMapping(value="/", method= RequestMethod.GET)
-    public String getHome(Model model){
-    	// Just return the login page
-        return "login";
+    public String getHome(Model model,
+    		@CookieValue(value="sessionId",defaultValue="") String sessionId){
+    	// Just return the login page if not authenticated
+    	if(!auth.isAuthenticated(sessionId)){
+    		return "login";
+    	}
+        return "hello";
     }
     
     @RequestMapping(value="/displayProjects", method= RequestMethod.GET)
@@ -42,11 +52,14 @@ public class ProjectController {
     }
     
     @RequestMapping(value="/createProjects", method= RequestMethod.GET)
-    public String getCreatePage(@CookieValue(value="sessionId",defaultValue="") String sessionId){
-    	if(AuthenticationController.isAuthenticated(sessionId)){
-    		return "createProject";
+    public String getCreatePage(@CookieValue(value="sessionId",defaultValue="") String sessionId,
+    		Model model){
+    	if(!auth.isAuthenticated(sessionId)){
+    		model.addAttribute("message", "User not authenticated");
+    		return "error";
     	}
-    	return "error";
+    	
+    	return "createProject";
     }
     
     @RequestMapping(value="/viewProject", method= RequestMethod.GET)
@@ -64,7 +77,12 @@ public class ProjectController {
     public String createProject(@RequestParam(value="name") String name,
     				@RequestParam(value="max") int maxStudents,
     				@RequestParam(value="profName") String profName,
+    				@CookieValue(value="sessionId",defaultValue="") String sessionId,
     				Model model){
+    	if(!auth.isAuthenticated(sessionId)){
+    		model.addAttribute("message", "User not authenticated");
+    		return "error";
+    	}
     	// Get the prof that is referenced or create a new one
     	List<User> profs = userRepo.findByUsername(profName);
     	if(profs.isEmpty() && !(profs.get(0) instanceof Professor)){
@@ -84,7 +102,12 @@ public class ProjectController {
     @RequestMapping(value="/applyForProject",method=RequestMethod.GET)
     public String applyForProject(@RequestParam(value="projectId") int projectId,
 				@RequestParam(value="studentName") String studentName,
+				@CookieValue(value="sessionId",defaultValue="") String sessionId,
 				Model model){
+    	if(!auth.isAuthenticated(sessionId)){
+    		model.addAttribute("message", "User not authenticated");
+    		return "error";
+    	}
     	List<User> students = userRepo.findByUsername(studentName);
     	if(students.isEmpty() && !(students.get(0) instanceof Student)){
     		// TODO: return Error message
@@ -108,7 +131,12 @@ public class ProjectController {
     
     @RequestMapping(value="/deleteProject",method=RequestMethod.GET)
     public String deleteProject(@RequestParam(value="projectId") int projectId,
+    		@CookieValue(value="sessionId",defaultValue="") String sessionId,
 			Model model){
+    	if(!auth.isAuthenticated(sessionId)){
+    		model.addAttribute("message", "User not authenticated");
+    		return "error";
+    	}
     	List<Project> projects = repo.findById(projectId);
     	if(projects.isEmpty()){
     		return "error";

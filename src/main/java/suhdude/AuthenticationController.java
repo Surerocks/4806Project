@@ -16,11 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AuthenticationController {
 	
-	// TODO: This class will be used to handle login for a user
-	
-	// Will need a UserRepository, which means existing Prof and Student repos
-		// will no longer be needed, but replaced with User repo and getProfs/getStudents
-		// methods within that repository
+	// This class will be used to handle login and authentication checks for a user
+
 	private UserRepository repo;
 	
 	@Autowired
@@ -29,12 +26,7 @@ public class AuthenticationController {
 	}
 	
 	// Our new landing page will be a page that makes calls to this to login,
-		// which then returns the appropriate homepage based on the type of User
-		// For example, Profs will see a different view than Students
-	
-	// Our new landing page will also have a register as student or register as prof,
-		// Which will require backend support
-	
+		// which then returns the appropriate homepage based on the type of User	
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String createProf(@RequestParam("username") String username,
 				@RequestParam("password") String password,
@@ -60,7 +52,7 @@ public class AuthenticationController {
 	}
 	
 	// Checks if a session Id is authenticated
-	public static boolean isAuthenticated(String sessionId){
+	public boolean isAuthenticated(String sessionId){
 		if(sessionId.equals("valid")){
 			return true;
 		}
