@@ -11,6 +11,7 @@ import javax.persistence.Id;
 public abstract class User {
 	private String username;
 	private String password;
+	private String sessionId;
 	
 	@Id
 	public String getUsername() {
@@ -25,6 +26,13 @@ public abstract class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getSessionId() {
+		return sessionId;
+	}
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+	
 	
 	
 }

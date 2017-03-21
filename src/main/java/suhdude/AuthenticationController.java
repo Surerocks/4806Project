@@ -19,6 +19,7 @@ public class AuthenticationController {
 	// This class will be used to handle login and authentication checks for a user
 
 	private UserRepository repo;
+	private int nextSession = 0;
 	
 	@Autowired
 	public void setRepo(UserRepository repo){
@@ -42,7 +43,9 @@ public class AuthenticationController {
 		if(u.getPassword().equals(password)){
 			// TODO: Return a view that is specific to the type of User
 			// TODO: Generate a cookie to return with a session Id
-			response.addCookie(new Cookie("sessionId","valid"));
+			u.setSessionId("user" + nextSession++);
+			repo.save(u);
+			response.addCookie(new Cookie("sessionId",u.getSessionId()));
 			return "hello";
 		} else {
 			// TODO: Return nice message about username/password invalid
@@ -53,10 +56,12 @@ public class AuthenticationController {
 	
 	// Checks if a session Id is authenticated
 	public boolean isAuthenticated(String sessionId){
-		if(sessionId.equals("valid")){
+		List<User> users = repo.findBySessionId(sessionId);
+		if(users.isEmpty()){
+			return false;
+		} else {
 			return true;
 		}
-		return false;
 	}
 	
 }
