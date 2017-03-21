@@ -42,8 +42,11 @@ public class ProjectController {
     }
     
     @RequestMapping(value="/createProjects", method= RequestMethod.GET)
-    public String getCreatePage(){
-    	return "createProject";
+    public String getCreatePage(@CookieValue(value="sessionId",defaultValue="") String sessionId){
+    	if(AuthenticationController.isAuthenticated(sessionId)){
+    		return "createProject";
+    	}
+    	return "error";
     }
     
     @RequestMapping(value="/viewProject", method= RequestMethod.GET)
