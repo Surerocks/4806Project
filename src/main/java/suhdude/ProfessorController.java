@@ -7,19 +7,23 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ProfessorController {
-	private ProfessorRepository repo;
+	private UserRepository repo;
 	
 	@Autowired
-    public void setRepo(ProfessorRepository repo){
+    public void setRepo(UserRepository repo){
         this.repo = repo;
     }
 	
 	@RequestMapping(value="/createProfessor",method=RequestMethod.GET)
 	public String createProf(@RequestParam("profName") String profName,
-				@RequestParam("email") String email){
+				@RequestParam("email") String email,
+				@RequestParam("password") String password,
+				@RequestParam("username") String username){
 		Professor p = new Professor(profName,email);
+		p.setUsername(username);
+		p.setPassword(password);
 		repo.save(p);
-		return "hello";
+		return "login";
 	}
 	
 	@RequestMapping(value="/createProfessors",method=RequestMethod.GET)

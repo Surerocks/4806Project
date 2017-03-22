@@ -9,9 +9,12 @@
 		<input type="submit" value  = "HOME"/>
 	</form>
 	<form action="#" th:action="@{/createStudent}">
-                <p>Name: <input type="text" th:name="studentName" th:value="*{studentName}" /></p>
-                <p>Student Number: <input type="text" th:name="studentNo" th:value="*{studentNo}" /></p>
-                <p>Email: <input type="text" th:name="email" th:value="*{email}" /></p>
+                Name: <input type="text" th:name="studentName" th:value="*{studentName}" /><br/>
+                Student Number: <input type="text" th:name="studentNo" th:value="*{studentNo}" /><br/>
+                Email: <input type="text" th:name="email" th:value="*{email}" /><br/>
+                Username: <input type="text" th:name="username" th:value="*{username}" /><br/>
+                Password: <input type="password" th:name="password" th:value="*{password}" /><br/>
+                
                 <input type="submit" value="Create" />
     </form>
 </body>

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Student {
+public class Student extends User{
 
 	private int studentNo;
 	private String name;
@@ -26,7 +26,6 @@ public class Student {
 		this.email = email;
 	}
 
-	@Id
 	public int getStudentNo() {
 		return studentNo;
 	}

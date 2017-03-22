@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Suh Dude Home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p>SUUUUUUUHHHHH DUDE</p>
+    
+    <form action="#" th:action="@{/login}">
+    	Username: 
+    	<input type="text" th:name="username"/>
+    	<br/>
+    	Password:
+    	<input type="password" th:name="password"/>
+    	<br/>
+    	<input type="submit" value="Login"/>
+    </form>
+
+	<form action="#" th:action="@{/createProfessors}">
+		<input type="submit" value  = "Register as a Professor"/>
+	</form>
+	<form action="#" th:action="@{/createStudents}">
+		<input type="submit" value  = "Register as a Student"/>
+	</form>
+</body>
+</html>

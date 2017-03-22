@@ -5,7 +5,7 @@ import javax.persistence.Id;
 
 
 @Entity
-public class Professor {
+public class Professor extends User{
 	private String name;
 	private String email;
 	
@@ -18,7 +18,6 @@ public class Professor {
 		this.email = email;
 	}
 
-	@Id
 	public String getName() {
 		return name;
 	}
