@@ -13,10 +13,13 @@ Heroku Link: https://suhdude4806.herokuapp.com/
 
 In our first milestone, we have the following features implemented:
 - A Professor and Student are able to 'Sign up'
+- Once signed up, a User can log in
+- A user can log out from the Home page
 - A Project can be created, and is associated with a given Professor
 - A list of all Projects can be viewed
 - A Project can be applied to by Students
 - A Project can be deleted by a Professor
+- Submitting availability for scheduling is started, but hidden
 
 
 Backlog:
@@ -25,8 +28,6 @@ Backlog:
 	- A Professor can approve a Student that has applied for their project
 	- A Student can withdraw an application to a project
 	- Students can apply to a project as a Group
-
-- Implement Availability entering for all Users (Students and Professors)
 
 - Implement Availability scheduling
 
