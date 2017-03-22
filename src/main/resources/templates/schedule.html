@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Schedule Presentation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h>Schedule Time Monday-Friday</h>
+	<p>example for monday input: 8:00-10:00, 13:00-13:30</p>
+	<form action="#" th:action="@{/addSchedule}">
+	  <table>
+	    <tr>
+	      <td>
+	           <table>
+	             <tr>
+	               <td>Monday</td> 
+	               <td><input type="text" th:name ="monday" th:value="*{monday}" /></td> 
+	             </tr>
+	           </table>
+	      </td>
+	     </tr>
+	    <tr>
+	      <td>
+	           <table>
+	             <tr>
+	               <td>Tuesday</td> 
+	               <td><input type="text" th:name ="tuesday" th:value="*{tuesday}" /></td> 
+	             </tr>
+	           </table>
+	       </td>
+	    </tr>
+	    <tr>
+	      <td>
+	           <table>
+	             <tr>
+	               <td>Wednesday</td> 
+	               <td><input type="text" th:name ="wednesday" th:value="*{wednesday}" /></td> 
+	             </tr>
+	           </table>
+	       </td>
+	    </tr>
+	    <tr>
+	      <td>
+	           <table>
+	             <tr>
+	               <td>Thursday</td> 
+	               <td><input type="text" th:name ="thursday" th:value="*{thursday}" /></td> 
+	             </tr>
+	           </table>
+	       </td>
+	    </tr>
+	    <tr>
+	      <td>
+	           <table>
+	             <tr>
+	               <td>Friday</td> 
+	               <td><input type="text" th:name ="friday" th:value="*{friday}" /></td> 
+	             </tr>
+	           </table>
+	       </td>
+	    </tr>
+	 </table>
+	    <input type="submit" value="Submit" />
+	</form>
+
+    
+</body>
+</html>
