@@ -84,8 +84,12 @@ public class ProjectController {
     	}
     	// Get the prof that is referenced
     	List<User> profs = userRepo.findBySessionId(sessionId);
-    	if(profs.isEmpty() && !(profs.get(0) instanceof Professor)){
+    	if(profs.isEmpty()){
     		model.addAttribute("message", "User not authenticated");
+    		return "error";
+    	}
+    	if(!(profs.get(0) instanceof Professor)){
+    		model.addAttribute("message", "Only professors can create projects");
     		return "error";
     	}
     	Professor prof = (Professor) profs.get(0);
@@ -108,10 +112,15 @@ public class ProjectController {
     		return "error";
     	}
     	List<User> students = userRepo.findBySessionId(sessionId);
-    	if(students.isEmpty() && !(students.get(0) instanceof Student)){
+    	if(students.isEmpty()){
     		model.addAttribute("message", "User not authenticated");
     		return "error";
     	}
+    	if(!(students.get(0) instanceof Student)){
+    		model.addAttribute("message", "Only students can apply for projects");
+    		return "error";
+    	}
+    	
     	Student st = (Student) students.get(0);
     	List<Project> projects = repo.findById(projectId);
     	if(projects.isEmpty()){
@@ -138,8 +147,8 @@ public class ProjectController {
     	}
     	// Get the prof that is deleting the page
     	List<User> profs = userRepo.findBySessionId(sessionId);
-    	if(profs.isEmpty() && !(profs.get(0) instanceof Professor)){
-    		model.addAttribute("message", "User not authorized to delete the page");
+    	if(profs.isEmpty() || !(profs.get(0) instanceof Professor)){
+    		model.addAttribute("message", "User not authorized to delete the project");
     		return "error";
     	}
     	List<Project> projects = repo.findById(projectId);
