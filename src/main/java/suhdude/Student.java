@@ -82,5 +82,5 @@ public class Student extends User{
 		return group;
 	}
 
-	public void setGroup(ArrayList<Student> g) { this.group = g; }
+	public void setGroup(List<Student> g) { this.group = g; }
 }

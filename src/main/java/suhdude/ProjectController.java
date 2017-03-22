@@ -76,16 +76,16 @@ public class ProjectController {
     @RequestMapping(value="/createProject",method=RequestMethod.GET)
     public String createProject(@RequestParam(value="name") String name,
     				@RequestParam(value="max") int maxStudents,
-    				@RequestParam(value="profName") String profName,
     				@CookieValue(value="sessionId",defaultValue="") String sessionId,
     				Model model){
     	if(!auth.isAuthenticated(sessionId)){
     		model.addAttribute("message", "User not authenticated");
     		return "error";
     	}
-    	// Get the prof that is referenced or create a new one
-    	List<User> profs = userRepo.findByUsername(profName);
+    	// Get the prof that is referenced
+    	List<User> profs = userRepo.findBySessionId(sessionId);
     	if(profs.isEmpty() && !(profs.get(0) instanceof Professor)){
+    		model.addAttribute("message", "User not authenticated");
     		return "error";
     	}
     	Professor prof = (Professor) profs.get(0);
@@ -101,16 +101,15 @@ public class ProjectController {
     
     @RequestMapping(value="/applyForProject",method=RequestMethod.GET)
     public String applyForProject(@RequestParam(value="projectId") int projectId,
-				@RequestParam(value="studentName") String studentName,
 				@CookieValue(value="sessionId",defaultValue="") String sessionId,
 				Model model){
     	if(!auth.isAuthenticated(sessionId)){
     		model.addAttribute("message", "User not authenticated");
     		return "error";
     	}
-    	List<User> students = userRepo.findByUsername(studentName);
+    	List<User> students = userRepo.findBySessionId(sessionId);
     	if(students.isEmpty() && !(students.get(0) instanceof Student)){
-    		// TODO: return Error message
+    		model.addAttribute("message", "User not authenticated");
     		return "error";
     	}
     	Student st = (Student) students.get(0);
@@ -135,6 +134,12 @@ public class ProjectController {
 			Model model){
     	if(!auth.isAuthenticated(sessionId)){
     		model.addAttribute("message", "User not authenticated");
+    		return "error";
+    	}
+    	// Get the prof that is deleting the page
+    	List<User> profs = userRepo.findBySessionId(sessionId);
+    	if(profs.isEmpty() && !(profs.get(0) instanceof Professor)){
+    		model.addAttribute("message", "User not authorized to delete the page");
     		return "error";
     	}
     	List<Project> projects = repo.findById(projectId);
