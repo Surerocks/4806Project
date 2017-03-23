@@ -1,6 +1,10 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -79,5 +83,68 @@ public class StudentTest {
 		s.setEmail(email);
 		assertTrue("Student's Email not correct", s.getEmail().equals("email2"));
 	}
-
+	
+	@Test
+	public void testIsGroupLeader(){
+		s = new Student(1,"name","email");
+		s.setGroupLeader(true);
+		assertTrue("Group Leader Method not correct", s.isGroupLeader());
+	}
+	
+	@Test
+	public void testSetGroupLeader(){
+		s = new Student(1,"name","email");
+		assertFalse("Group Leader Method not correct", s.isGroupLeader());
+		s.setGroupLeader(true);
+		assertTrue("Group Leader Method not correct", s.isGroupLeader());
+	}
+	
+	@Test
+	public void testCreateGroup(){
+		s = new Student(1,"name","email");
+		Student s2 = new Student(2,"name2","email2");
+		s.createGroup(s2);
+		assertTrue("Group not created properly", s.getGroup().contains(s2));
+	}
+	
+	@Test
+	public void testAddtoGroup(){
+		s = new Student(1,"name","email");
+		Student s2 = new Student(2,"name2","email2");
+		s.createGroup(s2);
+		Student s3 = new Student(3,"name3","email3");
+		s.addToGroup(s3);
+		assertTrue("Student not added properly", s.getGroup().contains(s3));
+	}
+	
+	@Test
+	public void testDisbandGroup(){
+		s = new Student(1,"name","email");
+		Student s2 = new Student(2,"name2","email2");
+		s.createGroup(s2);
+		assertTrue("Group not created properly", s.getGroup().contains(s2));
+		s.disbandGroup();
+		assertTrue("Group not disbanded properly", s.getGroup().isEmpty());
+	}
+	
+	@Test
+	public void testGetGroup(){
+		s = new Student(1,"name","email");
+		Student s2 = new Student(2,"name2","email2");
+		s.createGroup(s2);
+		assertTrue("Get Group method not correct",
+				s.getGroup().contains(s)&&s.getGroup().contains(s2));
+	}
+	
+	@Test
+	public void testSetGroup(){
+		s = new Student(1,"name","email");
+		Student s2 = new Student(2,"name2","email2");
+		List<Student> students = new ArrayList<Student>();
+		students.add(s);
+		students.add(s2);
+		s.setGroup(students);
+		assertTrue("Set Group method not correct",
+				s.getGroup().contains(s)&&s.getGroup().contains(s2));
+	}
 }
