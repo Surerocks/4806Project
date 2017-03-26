@@ -3,10 +3,11 @@
 <head>
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	<form action="#" th:action="@{/}">
-		<input type="submit" value  = "HOME"/>
+		<input class="home_button" type="submit" value  = "HOME"/>
 	</form>
     <p th:text="'Project name: ' + ${project.name}"></p>
     <p th:text="'Prof: ' + ${project.prof}"></p>
