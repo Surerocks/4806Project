@@ -3,18 +3,19 @@
 <head>
     <title>Suh Dude Home</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	<form action="#" th:action="@{/}">
-		<input type="submit" value  = "HOME"/>
+		<input class="home_button" type="submit" value  = "HOME"/>
 	</form>
 	<form action="#" th:action="@{/createProfessor}">
-                Professor's Name: <input type="text" th:name="profName" th:value="*{profName}" /><br/>
-                Email: <input type="text" th:name="email" th:value="*{email}" /><br/>
-                Username: <input type="text" th:name="username" th:value="*{username}" /><br/>
-                Password: <input type="password" th:name="password" th:value="*{password}" /><br/>
+                <label>Professor's Name: </label><input type="text" th:name="profName" th:value="*{profName}" /><br/>
+                <label>Email: </label><input type="text" th:name="email" th:value="*{email}" /><br/>
+                <label>Username: </label><input type="text" th:name="username" th:value="*{username}" /><br/>
+                <label>Password: </label><input type="password" th:name="password" th:value="*{password}" /><br/>
                 
-                <input type="submit" value="Create" />
+                <input class="bottom_button" type="submit" value="Create" />
     </form>
 </body>
 </html>
