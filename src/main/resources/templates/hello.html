@@ -3,28 +3,27 @@
 <head>
     <title>Suh Dude Home</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-
 	<form action="#" th:action="@{/logout}">
-		<input type="submit" value  = "LOGOUT"/>
+		<input class="home_button" type="submit" value  = "LOGOUT"/>
 	</form><br/>
-    <p>SUUUUUUUHHHHH DUDE</p>
-    
+    <h1>SUUUUUUUHHHHH DUDE</h1>
     <form action="#" th:action="@{/displayProjects}">
-		<input type="submit" value  = "Display Projects"/>
+		<input class="hello_button" type="submit" value  = "Display Projects"/>
 	</form>
 	<form action="#" th:action="@{/createProjects}">
-		<input type="submit" value  = "Create a Project"/>
+		<input class="hello_button" type="submit" value  = "Create a Project"/>
 	</form>
 	<form action="#" th:action="@{/createProfessors}">
-		<input type="submit" value  = "Create a Prof"/>
+		<input class="hello_button" type="submit" value  = "Create a Prof"/>
 	</form>
 	<form action="#" th:action="@{/createStudents}">
-		<input type="submit" value  = "Create a Student"/>
+		<input class="hello_button" type="submit" value  = "Create a Student"/>
 	</form>
-	<form action="#" th:action="@{/studentsWithoutProjects}">
-		<input type="submit" value  = "View Students Without Projects"/>
+  <form action="#" th:action="@{/studentsWithoutProjects}">
+		<input class="hello_button" type="submit" value  = "View Students Without Projects"/>
 	</form>
 </body>
 </html>

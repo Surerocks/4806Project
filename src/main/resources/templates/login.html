@@ -3,25 +3,27 @@
 <head>
     <title>Suh Dude Home</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <p>SUUUUUUUHHHHH DUDE</p>
+    <h1>SUUUUUUUHHHHH DUDE</h1>
     
     <form action="#" th:action="@{/login}">
-    	Username: 
+    	<label>Username: </label>
     	<input type="text" th:name="username"/>
     	<br/>
-    	Password:
+    	<label>Password: </label>
     	<input type="password" th:name="password"/>
     	<br/>
-    	<input type="submit" value="Login"/>
+    	<input class="bottom_button" type="submit" value="Login"/>
     </form>
 
 	<form action="#" th:action="@{/createProfessors}">
-		<input type="submit" value  = "Register as a Professor"/>
+		<input class="bottom_button" type="submit" value  = "Register as a Professor"/>
 	</form>
+
 	<form action="#" th:action="@{/createStudents}">
-		<input type="submit" value  = "Register as a Student"/>
+		<input class="bottom_button" type="submit" value  = "Register as a Student"/>
 	</form>
 	<form action="#" th:action="@{/createCoordinators}">
 		<input type="submit" value  = "Register as a Project Coordinator"/>
