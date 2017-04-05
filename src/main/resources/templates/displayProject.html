@@ -35,11 +35,10 @@
 	    
 	    
     	<form action="#" th:action="@{/applyForProject}">
-    		<label>Student Number:</label> <input type="text" th:name ="studentNo" th:value="*{studentNo}" /></br>
-    		<label>Project Id: </label> <input type="text" th:name ="projectId" th:value="*{projectId}" /></br>
+    		<label>Student Number:</label> <input type="text" th:name ="studentNo" th:value="*{studentNo}" /><br/>
+    		<label>Project Id: </label> <input type="text" th:name ="projectId" th:value="*{projectId}" /><br/>
     		<input class="bottom_button" type="submit" value="Apply" />
-		</form>
-	          
+    </form> 
 	</div>
 </body>
 </html>
