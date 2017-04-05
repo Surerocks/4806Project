@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<form action="#" th:action="@{/}">
+			<input type="submit" value  = "HOME"/>
+		</form>
+	<div th:if="${not #lists.isEmpty(students)}">
+		Students without Projects
+		<table>
+			<tr><th>Student Name</th><th>Student Id</th></tr>
+	        <tr th:each="student : ${students}">
+	            <td th:text="${student.name}"></td>
+	            <td th:text="${student.studentNo}"></td>
+	        </tr>
+	    </table>
+	</div>
+
+</body>
+</html>
