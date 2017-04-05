@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Project List</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -13,21 +13,38 @@
     <p th:text="'Prof: ' + ${project.prof}"></p>
     <p th:text="'Students: ' + ${project.name}"></p>
     <p th:text="'Max Students: ' + ${project.maxStudents}"></p>
-	<div th:if="${not #lists.isEmpty(project.students)}">
-	    <table>
-		        <tr th:each="student : ${project.students}">
-		            <td th:text="${student.name}"></td>     
-		        </tr>
-		</table>
-	</div>
 	<div th:if="${not #lists.isEmpty(project.applicants)}">
+	    <h2>Applicants</h2>
 		<table>
-		        <tr th:each="studentApplied : ${project.applicants}">
-		            <td th:text="${studentApplied.name}"></td>     
-		        </tr>
+			<tr th:each="studentApplied : ${project.applicants}">
+				<td th:text="${studentApplied.name}"></td>
+				<td>
+					<form action="#" th:action="@{/approveForProject}">
+						<input type="text" th:name="projectId" th:value="${project.id}" hidden="true"/>
+						<input type="text" th:name="studentName" th:value="${studentApplied.username}" hidden="true"/>
+						<input class="bottom_button" type="submit" value="Approve" />
+					</form>
+				</td>
+			</tr>
 		</table>
 	</div>
-	
+	<div th:if="${not #lists.isEmpty(project.students)}">
+		<h2>Approved Students</h2>
+		<table>
+			<tr th:each="studentApproved : ${project.students}">
+				<td th:text="${studentApproved.name}"></td>
+			</tr>
+		</table>
+	</div>
+	<form action="#" th:action="@{/withdrawProject}">
+		<input type="text" th:name="projectId" th:value="${project.id}" hidden="true"/>
+		<input class="bottom_button" type="submit" value="Withdraw" />
+	</form>
+
+	<form action="#" th:action="@{/applyForProject}">
+		<input type="text" th:name="projectId" th:value="${project.id}" hidden="true"/>
+		<input class="bottom_button" type="submit" value="Apply" />
+	</form>
 	
     
 </body>

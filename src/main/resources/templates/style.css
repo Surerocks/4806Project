@@ -3,9 +3,6 @@ h1, h2, p, input, label {
     margin-top: 5px;
 }
 
-h2 {
-
-}
 label{
     display: inline-block;
     float: left;
@@ -15,14 +12,16 @@ label{
     padding-right: 5px;
 }
 
-h1{
+h1, h2{
 	margin-left: 50px;
 }
 
 .home_button{
     margin-bottom: 10px;
 }
-
+.hello_button{
+    margin-left: 175px;
+}
 .bottom_button{
     margin-left: 50px;
     margin-top: 10px;

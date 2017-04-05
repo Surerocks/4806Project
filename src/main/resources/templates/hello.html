@@ -6,18 +6,21 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+	<form action="#" th:action="@{/logout}">
+		<input class="home_button" type="submit" value  = "LOGOUT"/>
+	</form><br/>
     <h1>SUUUUUUUHHHHH DUDE</h1>
     <form action="#" th:action="@{/displayProjects}">
-		<input type="submit" value  = "Display Projects"/>
+		<input class="hello_button" type="submit" value  = "Display Projects"/>
 	</form>
 	<form action="#" th:action="@{/createProjects}">
-		<input type="submit" value  = "Create a Project"/>
+		<input class="hello_button" type="submit" value  = "Create a Project"/>
 	</form>
 	<form action="#" th:action="@{/createProfessors}">
-		<input type="submit" value  = "Create a Prof"/>
+		<input class="hello_button" type="submit" value  = "Create a Prof"/>
 	</form>
 	<form action="#" th:action="@{/createStudents}">
-		<input type="submit" value  = "Create a Student"/>
+		<input class="hello_button" type="submit" value  = "Create a Student"/>
 	</form>
 </body>
 </html>
