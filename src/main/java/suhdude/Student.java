@@ -55,7 +55,7 @@ public class Student extends User{
 	}
 
 	public void createGroup(Student s) {
-		group = new ArrayList<>();
+		group = new ArrayList<Student>();
 		this.groupLeader = true;
 		group.add(this);
 		group.add(s);
