@@ -3,13 +3,14 @@
 <head>
     <title>Getting Started: Handling Form Submission</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	<form action="#" th:action="@{/}">
-			<input type="submit" value  = "HOME"/>
+			<input class="home_button" type="submit" value  = "HOME"/>
 		</form>
 	<div th:if="${not #lists.isEmpty(projects)}">
-    	<p>Project List:</p>
+    	<h2>Project List:</h2>
         <p th:text="${projects.size()}"></p>
 	    <table>
 	        <tr th:each="project : ${projects}">
@@ -28,15 +29,14 @@
                 		<input type="text" th:name="projectId" th:value="${project.id}" hidden="true"/>
                 		<input type="submit" value="Delete" />
         			</form>
-	            </td>
-	            
+	            </td> 
 	        </tr>
 	    </table>
 	    
 	    
     	<form action="#" th:action="@{/applyForProject}">
-    		<p>Project Id: <input type="text" th:name ="projectId" th:value="*{projectId}" /></p>
-    		<input type="submit" value="Apply" />
+    		<label>Project Id: </label> <input type="text" th:name ="projectId" th:value="*{projectId}" /><br/>
+    		<input class="bottom_button" type="submit" value="Apply" />
 		</form>
 	          
 	</div>
