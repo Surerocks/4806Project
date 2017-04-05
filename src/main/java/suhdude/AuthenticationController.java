@@ -54,6 +54,16 @@ public class AuthenticationController {
 		}
 	}
 	
+	@RequestMapping(value="/logout",method=RequestMethod.GET)
+	public String logout(Model model,
+			HttpServletResponse response){
+		
+		// TODO: Make this do more than give a null value
+		response.addCookie(new Cookie("sessionId",null));
+		
+		return "login";
+	}
+	
 	// Checks if a session Id is authenticated
 	public boolean isAuthenticated(String sessionId){
 		List<User> users = repo.findBySessionId(sessionId);
