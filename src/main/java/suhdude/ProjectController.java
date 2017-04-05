@@ -137,6 +137,79 @@ public class ProjectController {
     	}
     }
     
+    @RequestMapping(value="/withdrawProject",method=RequestMethod.GET)
+    public String withdrawFromProject(@RequestParam(value="projectId") int projectId,
+			@CookieValue(value="sessionId",defaultValue="") String sessionId,
+			Model model){
+    	
+    	if(!auth.isAuthenticated(sessionId)){
+    		model.addAttribute("message", "User not authenticated");
+    		return "error";
+    	}
+    	List<User> students = userRepo.findBySessionId(sessionId);
+    	if(students.isEmpty()){
+    		model.addAttribute("message", "User not authenticated");
+    		return "error";
+    	}
+    	if(!(students.get(0) instanceof Student)){
+    		model.addAttribute("message", "Only students can withdraw from projects");
+    		return "error";
+    	}
+    	
+    	Student st = (Student) students.get(0);
+    	List<Project> projects = repo.findById(projectId);
+    	if(projects.isEmpty()){
+    		return "error";
+    	}
+    	Project p = projects.get(0);
+    	if(p.withdrawApplicant(st)){
+    		// Return success message
+    		repo.save(p);
+    		model.addAttribute("project",p);
+    		return "project";
+    	} else {
+    		return "error";
+    	}
+    }
+    
+    @RequestMapping(value="/approveForProject",method=RequestMethod.GET)
+    public String approveStudentForProject(@RequestParam(value="projectId") int projectId,
+    		@RequestParam(value="studentName") String studentName,
+			@CookieValue(value="sessionId",defaultValue="") String sessionId,
+			Model model){
+    	
+    	if(!auth.isAuthenticated(sessionId)){
+    		model.addAttribute("message", "User not authenticated");
+    		return "error";
+    	}
+    	
+    	// Allow a prof to approve a specific student for a project
+    	List<User> profs = userRepo.findBySessionId(sessionId);
+    	if(profs.isEmpty() || !(profs.get(0) instanceof Professor)){
+    		model.addAttribute("message", "User not authorized to approve for the project");
+    		return "error";
+    	}
+    	List<Project> projects = repo.findById(projectId);
+    	if(projects.isEmpty()){
+    		return "error";
+    	}
+    	Project p = projects.get(0);
+    	List<User> students = userRepo.findByUsername(studentName);
+    	if(students.isEmpty()){
+    		return "error";
+    	}
+    	Student s = (Student) students.get(0);
+    	
+    	if(p.approveApplicant(s)){
+    		// Return success message
+    		repo.save(p);
+    		model.addAttribute("project",p);
+    		return "project";
+    	} else {
+    		return "error";
+    	}
+    }
+    
     @RequestMapping(value="/deleteProject",method=RequestMethod.GET)
     public String deleteProject(@RequestParam(value="projectId") int projectId,
     		@CookieValue(value="sessionId",defaultValue="") String sessionId,
