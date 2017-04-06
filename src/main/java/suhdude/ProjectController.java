@@ -1,5 +1,6 @@
 package suhdude;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ProjectController {
@@ -240,7 +240,7 @@ public class ProjectController {
     @RequestMapping(value="/submitReport",method=RequestMethod.POST)
     public String submitReport(@RequestParam(value="projectId") int projectId,
 				@CookieValue(value="sessionId",defaultValue="") String sessionId,
-				@RequestParam(value="file") MultipartFile file,
+				@RequestParam(value="file") File file,
 				Model model){
     	if(!auth.isAuthenticated(sessionId)){
     		model.addAttribute("message", "User not authenticated");
