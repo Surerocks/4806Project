@@ -1,6 +1,8 @@
 package suhdude;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,6 +23,7 @@ public class Project {
 	private Professor prof;
 	private int maxStudents;
 	private File report;
+	private Calendar reportDeadline;
 
 	public Project(){
 		
@@ -83,6 +86,13 @@ public class Project {
 		this.report = report;
 	}
 
+	public Calendar getReportDeadline() {
+		return reportDeadline;
+	}
+
+	public void setReportDeadline(Calendar reportDeadline) {
+		this.reportDeadline = reportDeadline;
+	}
 	public boolean addApplicant(Student s){
 		if(s.getGroup() != null) {
 		    if (students.size() + s.getGroup().size() <= maxStudents) {
@@ -130,9 +140,12 @@ public class Project {
 	}
 	
 	public boolean submitReport(Student s, File file){
-		if(students.contains(s)){	
-			setReport(file);
-			return true;
+		if(students.contains(s)){
+			Calendar now = Calendar.getInstance();
+			if(now.compareTo(reportDeadline)<=0){
+				setReport(file);
+				return true;
+			}
 		}
 		return false;
 	}
