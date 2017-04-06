@@ -20,21 +20,10 @@ In our first milestone, we have the following features implemented:
 - A Project can be applied to by Students
 - A Project can be deleted by a Professor
 - Submitting availability for scheduling is started, but hidden
-
-
-Backlog:
-
-- Improve upon project selection
-	- A Professor can approve a Student that has applied for their project
-	- A Student can withdraw an application to a project
-	- Students can apply to a project as a Group
-
+- A Professor can approve a Student that has applied for their project
+- A Student can withdraw an application to a project
 - Implement Availability scheduling
-
-- Implement report submission
-	- Accept different file types
-	- Enforce a deadline
-
+- Report submission backed exists, ui issues prevented front end
 - Implement the Role of Project Coordinator
 	- Can search for students that have not applied to any projects
-	- Can assign rooms based on the availability schedule
+
