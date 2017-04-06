@@ -13,7 +13,7 @@
     <form action="#" th:action="@{/displayProjects}">
 		<input class="hello_button" type="submit" value  = "Display Projects"/>
 	</form>
-	<form th:if="${isProf} == true" action="#" th:action="@{/createProjects}">
+	<form action="#" th:action="@{/createProjects}">
 		<input class="hello_button" type="submit" value  = "Create a Project"/>
 	</form>
 	<form action="#" th:action="@{/schedule}">
@@ -25,8 +25,10 @@
 	<form action="#" th:action="@{/createStudents}">
 		<input class="hello_button" type="submit" value  = "Create a Student"/>
 	</form>
+    <form action="#" th:action="@{/manageGroups}">
+        <input class="hello_button" type="submit" value  = "Manage Groups"/>
+    </form>
   	<form action="#" th:action="@{/studentsWithoutProjects}">
-  <form th:if="${isCoor} == true" action="#" th:action="@{/studentsWithoutProjects}">
 		<input class="hello_button" type="submit" value  = "View Students Without Projects"/>
 	</form>
 </body>
