@@ -3,6 +3,7 @@ package tests;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Before;
@@ -191,5 +192,16 @@ public class ProjectTest {
 		pro.withdrawApplicant(s);
 		assertTrue("Withdraw applicant method incorrect",pro.getApplicants().isEmpty());
 		
+	}
+	
+	@Test
+	public void testSetDeadline(){
+		pro = new Project("project");
+		Calendar test = Calendar.getInstance();
+		test.set(2018, 6, 26);
+		pro.setReportDeadline(test);
+		assertTrue("Current time has exceeded the deadline", (Calendar.getInstance().compareTo(pro.getReportDeadline())<0));
+		test.set(2016, 6, 26);
+		assertTrue("Current time has exceeded the deadline", (Calendar.getInstance().compareTo(pro.getReportDeadline())>0));
 	}
 }
