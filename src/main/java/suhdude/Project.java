@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class Project {
@@ -21,7 +20,7 @@ public class Project {
 	private List<Student> applicants;
 	private Professor prof;
 	private int maxStudents;
-	private MultipartFile report;
+	private File report;
 
 	public Project(){
 		
@@ -76,11 +75,11 @@ public class Project {
 		this.applicants = applicants;
 	}
 
-	public MultipartFile getReport() {
+	public File getReport() {
 		return report;
 	}
 
-	public void setReport(MultipartFile report) {
+	public void setReport(File report) {
 		this.report = report;
 	}
 
@@ -130,12 +129,12 @@ public class Project {
 		return false;
 	}
 	
-	public boolean submitReport(Student s, MultipartFile file){
-		if(students.contains(s)){
+	public boolean submitReport(Student s, File file){
+		if(students.contains(s)){	
 			setReport(file);
 			return true;
 		}
 		return false;
 	}
-	
+
 }
