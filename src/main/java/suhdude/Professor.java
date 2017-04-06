@@ -33,6 +33,5 @@ public class Professor extends User{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
+
 }

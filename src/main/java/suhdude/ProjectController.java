@@ -7,7 +7,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ProjectController {
@@ -287,5 +291,38 @@ public class ProjectController {
     	return "hello";
     }
     
-    
+    @RequestMapping(value="/submitReport",method=RequestMethod.POST)
+    public String submitReport(@RequestParam(value="projectId") int projectId,
+				@CookieValue(value="sessionId",defaultValue="") String sessionId,
+				@RequestParam(value="file") MultipartFile file,
+				Model model){
+    	if(!auth.isAuthenticated(sessionId)){
+    		model.addAttribute("message", "User not authenticated");
+    		return "error";
+    	}
+    	List<User> students = userRepo.findBySessionId(sessionId);
+    	if(students.isEmpty()){
+    		model.addAttribute("message", "User not authenticated");
+    		return "error";
+    	}
+    	if(!(students.get(0) instanceof Student)){
+    		model.addAttribute("message", "Only students can submit reports");
+    		return "error";
+    	}
+    	
+    	List<Project> projects = repo.findById(projectId);
+    	if(projects.isEmpty()){
+    		return "error";
+    	}
+    	Student s = (Student) students.get(0);
+    	Project p = projects.get(0);
+    	if(p.submitReport(s,file)){
+    		// Return success message
+    		repo.save(p);
+    		model.addAttribute("project",p);
+    		return "project";
+    	} else {
+    		return "error";
+    	}
+    }
 }

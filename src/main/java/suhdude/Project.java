@@ -1,7 +1,16 @@
 package suhdude;
 
-import javax.persistence.*;
+import java.io.File;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class Project {
@@ -12,7 +21,8 @@ public class Project {
 	private List<Student> applicants;
 	private Professor prof;
 	private int maxStudents;
-	
+	private MultipartFile report;
+
 	public Project(){
 		
 	}
@@ -66,6 +76,14 @@ public class Project {
 		this.applicants = applicants;
 	}
 
+	public MultipartFile getReport() {
+		return report;
+	}
+
+	public void setReport(MultipartFile report) {
+		this.report = report;
+	}
+
 	public boolean addApplicant(Student s){
 		if(s.getGroup() != null) {
 		    if (students.size() + s.getGroup().size() <= maxStudents) {
@@ -111,5 +129,13 @@ public class Project {
 		}
 		return false;
 	}
-
+	
+	public boolean submitReport(Student s, MultipartFile file){
+		if(students.contains(s)){
+			setReport(file);
+			return true;
+		}
+		return false;
+	}
+	
 }
