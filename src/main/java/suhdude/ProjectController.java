@@ -37,18 +37,49 @@ public class ProjectController {
     	if(!auth.isAuthenticated(sessionId)){
     		return "login";
     	}
+    	// Find out if student or prof made call
+    	// Get the user that is referenced
+    	List<User> users = userRepo.findBySessionId(sessionId);
+    	if(users.isEmpty()){
+    		return "login";
+    	}
+    	if(users.get(0) instanceof Professor){
+    		model.addAttribute("isProf", true);
+    	} else if (users.get(0) instanceof Student){
+    		model.addAttribute("isStu",true);
+    	} else {
+    		model.addAttribute("isCoor",true);
+    	}
         return "hello";
     }
     
     @RequestMapping(value="/displayProjects", method= RequestMethod.GET)
-    public String getProjects(Model model){
+    public String getProjects(Model model,
+    		@CookieValue(value="sessionId",defaultValue="") String sessionId){
     	Iterator<Project> projs = repo.findAll().iterator();
     	List<Project> projects = new ArrayList<Project>();
     	while(projs.hasNext()){
     		projects.add(projs.next());
     	}
+    	// Find out if student or prof made call
+    	if(!auth.isAuthenticated(sessionId)){
+    		model.addAttribute("message", "User not authenticated");
+    		return "error";
+    	}
+    	// Get the user that is referenced
+    	List<User> users = userRepo.findBySessionId(sessionId);
+    	if(users.isEmpty()){
+    		model.addAttribute("message", "User not authenticated");
+    		return "error";
+    	}
     	model.addAttribute("projects",projects);
-    	return "displayProject";
+    	if(users.get(0) instanceof Professor){
+    		model.addAttribute("isProf", true);
+    	} else if (users.get(0) instanceof Student){
+    		model.addAttribute("isStu", true);
+    	}
+    	
+		return "displayProject";
     }
     
     @RequestMapping(value="/createProjects", method= RequestMethod.GET)
@@ -64,13 +95,32 @@ public class ProjectController {
     
     @RequestMapping(value="/viewProject", method= RequestMethod.GET)
     public String getProjects(@RequestParam(value="projectId") Integer id,
+    		@CookieValue(value="sessionId",defaultValue="") String sessionId,
 					Model model){
     	List<Project> project = repo.findById(id);
     	if(project.isEmpty()){
     		return "error";
     	}
-    	model.addAttribute("project",project.get(0));
-    	return "project";
+    	Project p = project.get(0);
+    	// Find out if student or prof made call
+    	if(!auth.isAuthenticated(sessionId)){
+    		model.addAttribute("message", "User not authenticated");
+    		return "error";
+    	}
+    	// Get the user that is referenced
+    	List<User> users = userRepo.findBySessionId(sessionId);
+    	if(users.isEmpty()){
+    		model.addAttribute("message", "User not authenticated");
+    		return "error";
+    	}
+    	model.addAttribute("project",p);
+    	if(users.get(0) instanceof Professor){
+    		model.addAttribute("isProf", true);
+    	} else if (users.get(0) instanceof Student){
+    		model.addAttribute("isStu", true);
+    	}
+    	
+		return "project";
     }
     
     @RequestMapping(value="/createProject",method=RequestMethod.GET)
@@ -131,6 +181,7 @@ public class ProjectController {
     		// Return success message
     		repo.save(p);
     		model.addAttribute("project",p);
+    		model.addAttribute("isStu",true);
     		return "project";
     	} else {
     		return "error";
@@ -166,6 +217,7 @@ public class ProjectController {
     		// Return success message
     		repo.save(p);
     		model.addAttribute("project",p);
+    		model.addAttribute("isStu",true);
     		return "project";
     	} else {
     		return "error";
@@ -204,6 +256,7 @@ public class ProjectController {
     		// Return success message
     		repo.save(p);
     		model.addAttribute("project",p);
+    		model.addAttribute("isProf",true);
     		return "project";
     	} else {
     		return "error";
@@ -230,6 +283,7 @@ public class ProjectController {
     	}
     	Project p = projects.get(0);
     	repo.delete(p);
+    	model.addAttribute("isProf",true);
     	return "hello";
     }
     
