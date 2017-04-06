@@ -24,6 +24,7 @@ public class Schedule {
 	
 	
 	private int id;
+	private String stringRep;
 
 	private int[] monday;
 	
@@ -45,6 +46,8 @@ public class Schedule {
 		wednesday = l;
 		thursday = l;
 		friday = l;
+		
+		stringRep = "Monday: \nTuesday: \nWednesday: \nThursday: \nFriday";
 	
 	}
 	
@@ -54,7 +57,7 @@ public class Schedule {
 		this.wednesday = setList(wednesday);
 		this.thursday = setList(thursday);
 		this.friday = setList(friday);
-		
+		stringRep = "Monday: "+ monday+"\nTuesday: "+ tuesday+ "\nWednesday: "+ wednesday +"\nThursday: " + thursday + "\nFriday " + friday;
 		
 	}
 	
@@ -215,6 +218,10 @@ public class Schedule {
 			return day + " " + ts + ":" + "30";
 			
 		}
+	}
+	
+	public String toString(){
+		return stringRep;
 	}
 	
 	public int[] setList(String times){
