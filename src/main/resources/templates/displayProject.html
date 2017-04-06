@@ -16,7 +16,7 @@
 	        <tr th:each="project : ${projects}">
 	            <td th:text="${project.name}"></td>
 	            <td th:text="${project.id}"></td>
-	            <td th:text="${project.prof}"></td>
+	            <td th:text="${project.prof.name}"></td>
 	            <td th:text="${project.maxStudents}"></td>
 	            <td>
 	            	<form action="#" th:action="@{/viewProject}">
