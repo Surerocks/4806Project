@@ -69,20 +69,19 @@ public class StudentController {
 		else {
 			students = repo.findByUsername(username);
 			Student st2 = (Student) students.get(0);
-			if(st.getGroup() == null && st2.getGroup() == null) {
+			if (st.getGroup() == null && st2.getGroup() == null) {
 				st.createGroup(st2);
-			}
-			else if (st.getGroup() == null && st2.getGroup() != null) {
+			} else if (st.getGroup() == null && st2.getGroup() != null) {
 				st2.addToGroup(st);
-			}
-			else if (st.getGroup() != null && st2.getGroup() == null) {
+			} else if (st.getGroup() != null && st2.getGroup() == null) {
 				st.addToGroup(st2);
-			}
-			else {
+			} else {
 				model.addAttribute("message", "Both students are in a group");
 				return "manageGroup";
 			}
+			repo.save(st2);
 		}
+		repo.save(st);
 		return "manageGroup";
 	}
 
