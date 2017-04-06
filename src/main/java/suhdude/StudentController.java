@@ -45,6 +45,11 @@ public class StudentController {
 	public String createStudents(){
 		return "createStudent";
 	}
+	
+	@RequestMapping(value="/manageGroups",method=RequestMethod.GET)
+	public String manageGroups(){
+		return "manageGroup";
+	}
 
 	@RequestMapping(value="/createGroup", method=RequestMethod.GET)
 	public String createGroup(@CookieValue(value="sessionId", defaultValue="") String sessionId,
@@ -68,6 +73,10 @@ public class StudentController {
 		}
 		else {
 			students = repo.findByUsername(username);
+			if(students.isEmpty()){
+				model.addAttribute("message", "User not authenticated");
+				return "error";
+			}
 			Student st2 = (Student) students.get(0);
 			if (st.getGroup() == null && st2.getGroup() == null) {
 				st.createGroup(st2);
