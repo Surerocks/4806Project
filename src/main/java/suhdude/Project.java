@@ -67,7 +67,7 @@ public class Project {
 	}
 
 	public boolean addApplicant(Student s){
-		if(s.isGroupLeader()) {
+		if(s.getGroup() != null) {
 		    if (students.size() + s.getGroup().size() <= maxStudents) {
                 for (Student member : s.getGroup()) {
                     applicants.add(member);
@@ -84,7 +84,7 @@ public class Project {
 	
 	public boolean approveApplicant(Student s){
 		if(applicants.contains(s)){
-		    if(s.isGroupLeader()) {
+		    if(s.getGroup() != null) {
                 for (Student member : s.getGroup()) {
                 	applicants.remove(member);
                     students.add(member);
@@ -100,7 +100,7 @@ public class Project {
 
 	public boolean withdrawApplicant(Student s) {
 		if(applicants.contains(s)) {
-		    if(s.isGroupLeader()) {
+		    if(s.getGroup() != null) {
 		        for (Student member : s.getGroup()) {
 		            applicants.remove(member);
                 }
