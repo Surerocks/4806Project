@@ -1,7 +1,15 @@
 package suhdude;
 
-import javax.persistence.*;
+import java.io.File;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 
 @Entity
 public class Project {
@@ -12,7 +20,8 @@ public class Project {
 	private List<Student> applicants;
 	private Professor prof;
 	private int maxStudents;
-	
+	private File report;
+
 	public Project(){
 		
 	}
@@ -66,8 +75,16 @@ public class Project {
 		this.applicants = applicants;
 	}
 
+	public File getReport() {
+		return report;
+	}
+
+	public void setReport(File report) {
+		this.report = report;
+	}
+
 	public boolean addApplicant(Student s){
-		if(s.isGroupLeader()) {
+		if(s.getGroup() != null) {
 		    if (students.size() + s.getGroup().size() <= maxStudents) {
                 for (Student member : s.getGroup()) {
                     applicants.add(member);
@@ -84,7 +101,7 @@ public class Project {
 	
 	public boolean approveApplicant(Student s){
 		if(applicants.contains(s)){
-		    if(s.isGroupLeader()) {
+		    if(s.getGroup() != null) {
                 for (Student member : s.getGroup()) {
                 	applicants.remove(member);
                     students.add(member);
@@ -100,13 +117,21 @@ public class Project {
 
 	public boolean withdrawApplicant(Student s) {
 		if(applicants.contains(s)) {
-		    if(s.isGroupLeader()) {
+		    if(s.getGroup() != null) {
 		        for (Student member : s.getGroup()) {
 		            applicants.remove(member);
                 }
                 return true;
             }
 			applicants.remove(s);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean submitReport(Student s, File file){
+		if(students.contains(s)){	
+			setReport(file);
 			return true;
 		}
 		return false;

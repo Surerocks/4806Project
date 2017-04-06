@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <title>Manage Group</title>
+</head>
+<body>
+    <form action="#" th:action="@{/}">
+        <input class="home_button" type="submit" value  = "HOME"/>
+    </form>
+	<h1>Group Management</h1>
+    <div th:if="${#lists.isEmpty(group)}">
+		<h2>Create/Join Group</h2>
+		<p>Enter a student's username to join their group, or leave it blank to create a new group.</p>
+    	<form action="#" th:action="@{/createGroup}">
+			<label>Student Username: </label><input type="text" th:name="username" th:value="*{studentNo}"/><br/>
+    		<input class="bottom_button" type="submit" value="Create Group" /><br/>
+    	</form>
+    </div>
+
+    <div th:if="${not #lists.isEmpty(group)}">
+		<h2>Group Members</h2>
+    	<table>
+    		<tr th:each="member : ${group}">
+				<td th:text="${member.name}"/>
+				<td th:text="${member.id}"/>
+				<td>
+					<form action="#" th:action="@{/disbandGroup}">
+							<input class="bottom_button" type="submit" value="Disband Group" />
+					</form>
+				</td>
+			</tr>
+		</table>
+    </div>
+</body>
+</html>

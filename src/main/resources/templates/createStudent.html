@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Suh Dude Home</title>
+    <title>Create Student</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
@@ -9,6 +9,7 @@
 	<form action="#" th:action="@{/}">
 		<input class="home_button" type="submit" value  = "HOME"/>
 	</form>
+    <h1>Create Student</h1>
 	<form action="#" th:action="@{/createStudent}">
                 <label>Name: </label><input type="text" th:name="studentName" th:value="*{studentName}" /><br/>
                 <label>Student Number: </label><input type="text" th:name="studentNo" th:value="*{studentNo}" /><br/>
