@@ -79,14 +79,13 @@ public class ScheduleController {
     		return "error";
     	}
 		Iterator<Schedule> is = repo.findAll().iterator();
-		
-		System.out.println(is.next().toString());
-		
-		List<Schedule> s = repo.findById(0);
-		if(s.isEmpty()){
+
+		if(!is.hasNext()){
 			return "schedule";
 		}
-    	model.addAttribute("projects",s.get(0));
+		Schedule s = is.next();
+		System.out.println(s.getStringRep());
+    	model.addAttribute("schedule",s);
     	return "displayAvailibility";
     }
 

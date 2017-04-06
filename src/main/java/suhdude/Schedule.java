@@ -24,7 +24,7 @@ public class Schedule {
 	
 	
 	private int id;
-	private String stringRep;
+	private String stringRep="";
 
 	private int[] monday;
 	
@@ -47,7 +47,7 @@ public class Schedule {
 		thursday = l;
 		friday = l;
 		
-		stringRep = "Monday: \nTuesday: \nWednesday: \nThursday: \nFriday";
+		//stringRep = "Monday: \nTuesday: \nWednesday: \nThursday: \nFriday";
 	
 	}
 	
@@ -106,7 +106,14 @@ public class Schedule {
 	public void setThursday(int[] thursday) {
 		this.thursday = thursday;
 	}
-
+	
+	public String getStringRep(){
+		return stringRep;
+	}
+	
+	public void setStringRep(String stringRep){
+		this.stringRep = stringRep;
+	}
 
 	
 	public int[] getFriday() {
