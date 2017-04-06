@@ -46,6 +46,13 @@ public class AuthenticationController {
 			u.setSessionId("user" + nextSession++);
 			repo.save(u);
 			response.addCookie(new Cookie("sessionId",u.getSessionId()));
+			if(u instanceof Professor){
+	    		model.addAttribute("isProf", true);
+	    	} else if (u instanceof Student){
+	    		model.addAttribute("isStu",true);
+	    	} else {
+	    		model.addAttribute("isCoor",true);
+	    	}
 			return "hello";
 		} else {
 			// TODO: Return nice message about username/password invalid
