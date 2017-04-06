@@ -20,12 +20,6 @@
 	<form action="#" th:action="@{/schedule}">
 		<input type="submit" value  = "Oral Presentation Availibilty"/>
 	</form>
-	<form action="#" th:action="@{/createProfessors}">
-		<input class="hello_button" type="submit" value  = "Create a Prof"/>
-	</form>
-	<form action="#" th:action="@{/createStudents}">
-		<input class="hello_button" type="submit" value  = "Create a Student"/>
-	</form>
   
   <form th:if="${isCoor} == true" action="#" th:action="@{/studentsWithoutProjects}">
 		<input class="hello_button" type="submit" value  = "View Students Without Projects"/>
