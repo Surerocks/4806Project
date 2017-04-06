@@ -10,7 +10,7 @@
 		<input class="home_button" type="submit" value  = "HOME"/>
 	</form>
     <p th:text="'Project name: ' + ${project.name}"></p>
-    <p th:text="'Prof: ' + ${project.prof}"></p>
+    <p th:text="'Prof: ' + ${project.prof.name}"></p>
     <p th:text="'Students: ' + ${project.name}"></p>
     <p th:text="'Max Students: ' + ${project.maxStudents}"></p>
 	<div th:if="${not #lists.isEmpty(project.applicants)}">
