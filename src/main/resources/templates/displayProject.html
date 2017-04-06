@@ -25,19 +25,18 @@
         			</form>
 	            </td>
 	            <td>
-	            	<form action="#" th:action="@{/deleteProject}">
+	            	<form th:if="${isProf} == true" action="#" th:action="@{/deleteProject}">
                 		<input type="text" th:name="projectId" th:value="${project.id}" hidden="true"/>
                 		<input class="bottom_button" type="submit" value="Delete" />
         			</form>
+        			
+        			<form th:if="${isStu} == true" action="#" th:action="@{/applyForProject}">
+			    		<input type="text" th:name="projectId" th:value="${project.id}" hidden="true"/>
+			    		<input class="bottom_button" type="submit" value="Apply" />
+					</form>
 	            </td> 
 	        </tr>
 	    </table>
-	    
-	    
-    	<form action="#" th:action="@{/applyForProject}">
-    		<label>Project Id: </label> <input type="text" th:name ="projectId" th:value="*{projectId}" /><br/>
-    		<input class="bottom_button" type="submit" value="Apply" />
-		</form>
 	          
 	</div>
 </body>

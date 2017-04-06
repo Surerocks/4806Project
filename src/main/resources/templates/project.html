@@ -19,7 +19,7 @@
 			<tr th:each="studentApplied : ${project.applicants}">
 				<td th:text="${studentApplied.name}"></td>
 				<td>
-					<form action="#" th:action="@{/approveForProject}">
+					<form th:if="${isProf} == true" action="#" th:action="@{/approveForProject}">
 						<input type="text" th:name="projectId" th:value="${project.id}" hidden="true"/>
 						<input type="text" th:name="studentName" th:value="${studentApplied.username}" hidden="true"/>
 						<input class="bottom_button" type="submit" value="Approve" />
@@ -36,12 +36,12 @@
 			</tr>
 		</table>
 	</div>
-	<form action="#" th:action="@{/withdrawProject}">
+	<form th:if="${isStu} == true" action="#" th:action="@{/withdrawProject}">
 		<input type="text" th:name="projectId" th:value="${project.id}" hidden="true"/>
 		<input class="bottom_button" type="submit" value="Withdraw" />
 	</form>
 
-	<form action="#" th:action="@{/applyForProject}">
+	<form th:if="${isStu} == true" action="#" th:action="@{/applyForProject}">
 		<input type="text" th:name="projectId" th:value="${project.id}" hidden="true"/>
 		<input class="bottom_button" type="submit" value="Apply" />
 	</form>
