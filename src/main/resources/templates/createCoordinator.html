@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+	<form action="#" th:action="@{/}">
+		<input type="submit" value  = "HOME"/>
+	</form>
+	<form action="#" th:action="@{/createCoordinator}">
+                Coordinator's Name: <input type="text" th:name="name" th:value="*{name}" /><br/>
+                Username: <input type="text" th:name="username" th:value="*{username}" /><br/>
+                Password: <input type="password" th:name="password" th:value="*{password}" /><br/>
+                
+                <input type="submit" value="Create" />
+    </form>
+
+</body>
+</html>

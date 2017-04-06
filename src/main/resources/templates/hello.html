@@ -3,7 +3,7 @@
 <head>
     <title>Suh Dude Home</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
 	<form action="#" th:action="@{/logout}">
@@ -22,7 +22,10 @@
 	<form action="#" th:action="@{/createStudents}">
 		<input class="hello_button" type="submit" value  = "Create a Student"/>
 	</form>
-	<form action="#" th:action="@{/manageGroup}">
+  <form action="#" th:action="@{/studentsWithoutProjects}">
+		<input class="hello_button" type="submit" value  = "View Students Without Projects"/>
+	</form>
+  <form action="#" th:action="@{/manageGroup}">
 		<input class="hello_button" type="submit" value  = "Create/Manage Groups"/>
 	</form>
 </body>
