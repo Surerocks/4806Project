@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Schedule Presentation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+
+	<form action="#" th:action="@{/}">
+			<input class="home_button" type="submit" value  = "HOME"/>
+	</form>
+	
+	<p th:text="${schedule.getStringRep()}"></p>
+
+    
+</body>
+</html>
