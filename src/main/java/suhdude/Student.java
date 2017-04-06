@@ -2,7 +2,6 @@ package suhdude;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +58,13 @@ public class Student extends User{
 		this.groupLeader = true;
 		group.add(this);
 		group.add(s);
+		s.group = group;
+	}
+
+	public void createGroup() {
+		group = new ArrayList<>();
+		this.groupLeader = true;
+		group.add(this);
 	}
 
 	public void setGroupLeader(boolean b) {
@@ -67,12 +73,16 @@ public class Student extends User{
 	public boolean addToGroup(Student s) {
 		if(!group.contains(s)) {
 			group.add(s);
+			s.group = group;
 			return true;
 		}
 		return false;
 	}
 
 	public void disbandGroup() {
+		for(Student s: group) {
+			s.group = null;
+		}
 		group.clear();
 		groupLeader = false;
 	}
