@@ -41,11 +41,20 @@ public class ScheduleController {
     		model.addAttribute("message", "User not authenticated");
     		return "error";
     	}
+		/*
+		List<Schedule> s = repo.findById(0);
+		Schedule schedule = new Schedule();
+		if(!s.isEmpty()){
+			schedule = s.get(0);
+		}
+		
+		model.addAttribute("schedule", schedule);
+		*/
 		return "schedule";
     }
 	
 	@RequestMapping(value="/addSchedule",method=RequestMethod.GET)
-    public String createProject(@RequestParam(value="monday") String monday,
+    public String createSchedule(@RequestParam(value="monday") String monday,
     				@RequestParam(value="tuesday") String tuesday,
     				@RequestParam(value="wednesday") String wednesday,
     				@RequestParam(value="thursday") String thursday,
@@ -69,8 +78,14 @@ public class ScheduleController {
     		model.addAttribute("message", "User not authenticated");
     		return "error";
     	}
+		Iterator<Schedule> is = repo.findAll().iterator();
+		
+		System.out.println(is.next().toString());
 		
 		List<Schedule> s = repo.findById(0);
+		if(s.isEmpty()){
+			return "schedule";
+		}
     	model.addAttribute("projects",s.get(0));
     	return "displayAvailibility";
     }
