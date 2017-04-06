@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -14,35 +16,47 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 @Entity
 public class Schedule {
+	
+	
 	private int id;
-	//private Student student;
-	private Map<String, String> timeTable;
+
+	private int[] monday;
+	
+	private int[] tuesday;
+	private int[] wednesday;
+	private int[] thursday;
+	private int[] friday;
+	
 	
 	public Schedule(){
-		timeTable = new HashMap<String, String>();
-		timeTable.put("monday", "");
-		timeTable.put("tuesday", "");
-		timeTable.put("wednesday", "");
-		timeTable.put("thursday", "");
-		timeTable.put("friday", "");
 		
+		int[] l = new int[17];
+		for (int i = 0; i < 17; i++) {
+			l[i]=0;
+		}
+		
+		monday = l;
+		tuesday = l;
+		wednesday = l;
+		thursday = l;
+		friday = l;
+	
 	}
 	
 	public Schedule(String monday, String tuesday, String wednesday,String thursday, String friday ){
-		timeTable = new HashMap<String, String>();
-		timeTable.put("monday", monday);
-		timeTable.put("tuesday", tuesday);
-		timeTable.put("wednesday", wednesday);
-		timeTable.put("thursday", thursday);
-		timeTable.put("friday", friday);
-		//List<Integer> availible;
-		//availible = setList(monday);
-	
+		this.monday = setList(monday);
+		this.tuesday = setList(tuesday);
+		this.wednesday = setList(wednesday);
+		this.thursday = setList(thursday);
+		this.friday = setList(friday);
+		
 		
 	}
-	
 	
 	@Id
 	@GeneratedValue
@@ -53,28 +67,192 @@ public class Schedule {
 		this.id = id;
 	}
 	
-	
-	@ElementCollection
-	public Map<String,String> getStudents() {
-		return timeTable;
+	public int[] getMonday() {
+		return monday;
 	}
 	
-	public void setStudents(Map<String, String> timeTable) {
-		this.timeTable = timeTable;
+	
+	public int[] getTuesday() {
+		return tuesday;
 	}
 	
-	public ArrayList<Integer> setList(String times){
-		ArrayList<Integer> list = new ArrayList();
+	public void setMonday(int[] monday) {
+		this.monday = monday;
+	}
+	
+	
+	public void setTuesday(int[] tuesday) {
+		this.tuesday = tuesday;
+	}
+
+	
+	
+	public int[] getWednesday() {
+		return wednesday;
+	}
+	
+	public void setWednesday(int[] wednesday) {
+		this.wednesday = wednesday;
+	}
+
+	
+	public int[] getThursday() {
+		return thursday;
+	}
+	
+	public void setThursday(int[] thursday) {
+		this.thursday = thursday;
+	}
+
+
+	
+	public int[] getFriday() {
+		return friday;
+	}
+	
+	public void setFriday(int[] friday) {
+		this.friday = friday;
+	}
+	
+
+	
+	
+	
+	public int setPlacement(String time){
+		String delims = "[:]+";
+		String[] t = time.split(delims);
+		
+		int hour = Integer.parseInt(t[0]);
+		int min = Integer.parseInt(t[1]);
+		
+		hour = 2*(hour - 8);
+		if(min >= 30){
+			hour++;
+		}
+		
+		return hour;
+	}
+	
+	public String findPresentationDay(List<Schedule> students){
+		Boolean busy;
+		String day="";
+		int ts=-1;
+		for(int i=0; i < 17; i++){
+			busy = false;
+			for(Schedule s:students){
+				if(s.getMonday()[i]==1){
+					busy = true;
+				}
+			}
+			if(!busy){
+				ts = i;
+				day = "Monday";
+				break;
+			}
+			
+			busy = false;
+			
+			for(Schedule s:students){
+				if(s.getTuesday()[i]==1){
+					busy = true;
+				}
+			}
+			
+			if(!busy){
+				ts = i;
+				day = "Tuesday";
+				break;
+			}
+			
+			busy=false;
+			
+			for(Schedule s:students){
+				if(s.getWednesday()[i]==1){
+					busy = true;
+				}
+			}
+			
+			if(!busy){
+				ts = i;
+				day="Wednesday";
+				break;
+			}
+			busy = false;
+			for(Schedule s:students){
+				if(s.getThursday()[i]==1){
+					busy = true;
+				}
+			}
+			
+			if(!busy){
+				ts = i;
+				day= "Thursday";
+				break;
+			}
+			busy = false;
+			for(Schedule s:students){
+				if(s.getFriday()[i]==1){
+					busy = true;
+				}
+			}
+			
+			if(!busy){
+				ts = i;
+				day = "Friday";
+				break;
+			}
+		}
+		
+		if(ts==-1){
+			return "no time that works for everyone";
+		}
+
+		if((ts & 1) == 0){//even
+			ts = (ts)/2 + 8;
+			return day +" " +  ts + ":" + "00";
+		} else{
+			ts = (ts-1)/2 + 8;
+			return day + " " + ts + ":" + "30";
+			
+		}
+	}
+	
+	public int[] setList(String times){
+		
+		
+		int[] list = new int[17];
 		String delims = "[ ,]+";
 		String[] tokens = times.split(delims);
-		int range;
-		for(String s: tokens){
-			//TODO add functionality for converting a string key ("8:30-9:00" into a arraylist int repsentation  [0,1,1,0,0,0......]
+		String[] range;
+		int start=0; 
+		int end=0;
+		delims = "[-]+";
+		
+		for(int i=0; i<17; i++){
+			list[i]=0; 
 		}
+		
+		if(times == ""){
+			return list;
+		}
+		
+		
+		for(String s: tokens){
+			range = s.split(delims);
+			start = setPlacement(range[0]);
+			end = setPlacement(range[1]);
+			end = end -1;
+			for(int i=0; i<17; i++){
+				if(i<=end && i>=start){
+					list[i]=1;	
+				} 
+			}
+		}
+		
+		
 		
 		return list;
 		
 	}
-	
 
 }
