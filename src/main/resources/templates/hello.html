@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Suh Dude Home</title>
@@ -16,6 +16,9 @@
 	<form action="#" th:action="@{/createProjects}">
 		<input class="hello_button" type="submit" value  = "Create a Project"/>
 	</form>
+	<form action="#" th:action="@{/schedule}">
+		<input type="submit" value  = "Oral Presentation Availibilty"/>
+	</form>
 	<form action="#" th:action="@{/createProfessors}">
 		<input class="hello_button" type="submit" value  = "Create a Prof"/>
 	</form>
@@ -24,9 +27,6 @@
 	</form>
   <form action="#" th:action="@{/studentsWithoutProjects}">
 		<input class="hello_button" type="submit" value  = "View Students Without Projects"/>
-	</form>
-  <form action="#" th:action="@{/manageGroup}">
-		<input class="hello_button" type="submit" value  = "Create/Manage Groups"/>
 	</form>
 </body>
 </html>
