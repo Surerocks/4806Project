@@ -21,13 +21,13 @@
 	            <td>
 	            	<form action="#" th:action="@{/viewProject}">
                 		<input type="text" th:name="projectId" th:value="${project.id}" hidden="true"/>
-                		<input type="submit" value="View" />
+                		<input class="bottom_button" type="submit" value="View" />
         			</form>
 	            </td>
 	            <td>
 	            	<form action="#" th:action="@{/deleteProject}">
                 		<input type="text" th:name="projectId" th:value="${project.id}" hidden="true"/>
-                		<input type="submit" value="Delete" />
+                		<input class="bottom_button" type="submit" value="Delete" />
         			</form>
 	            </td> 
 	        </tr>
