@@ -12,7 +12,7 @@
 	<h1>Group Management</h1>
     <div th:if="${#lists.isEmpty(group)}">
 		<h2>Create/Join Group</h2>
-		<p>Enter a student's username to join their group, or leave it blank to create a new group.</p>
+		<p>Enter a student's username to join their group</p>
     	<form action="#" th:action="@{/createGroup}">
 			<label>Student Username: </label><input type="text" th:name="username" th:value="*{studentNo}"/><br/>
     		<input class="bottom_button" type="submit" value="Create Group" /><br/>

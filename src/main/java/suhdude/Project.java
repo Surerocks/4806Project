@@ -94,14 +94,6 @@ public class Project {
 		this.reportDeadline = reportDeadline;
 	}
 	public boolean addApplicant(Student s){
-		if(s.getGroup() != null) {
-		    if (students.size() + s.getGroup().size() <= maxStudents) {
-                for (Student member : s.getGroup()) {
-                    applicants.add(member);
-                }
-                return true;
-            }
-        }
 	    if(students.size() < maxStudents){
 			applicants.add(s);
 			return true;
@@ -111,13 +103,6 @@ public class Project {
 	
 	public boolean approveApplicant(Student s){
 		if(applicants.contains(s)){
-		    if(s.getGroup() != null) {
-                for (Student member : s.getGroup()) {
-                	applicants.remove(member);
-                    students.add(member);
-                }
-                return true;
-            }
 			applicants.remove(s);
 			students.add(s);
 			return true;
@@ -126,13 +111,7 @@ public class Project {
 	}
 
 	public boolean withdrawApplicant(Student s) {
-		if(applicants.contains(s)) {
-		    if(s.getGroup() != null) {
-		        for (Student member : s.getGroup()) {
-		            applicants.remove(member);
-                }
-                return true;
-            }
+		if(applicants.contains(s)){
 			applicants.remove(s);
 			return true;
 		}

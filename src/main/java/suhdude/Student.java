@@ -12,7 +12,7 @@ public class Student extends User{
 	private int studentNo;
 	private String name;
 	private String email;
-	private List<Student> group;
+	private List<Student> group = new ArrayList<Student>();
 	private boolean groupLeader = false;
 
 	public Student(){

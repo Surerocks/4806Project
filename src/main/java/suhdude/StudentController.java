@@ -78,19 +78,20 @@ public class StudentController {
 				return "error";
 			}
 			Student st2 = (Student) students.get(0);
-			if (st.getGroup() == null && st2.getGroup() == null) {
+			if (st.getGroup().isEmpty() && st2.getGroup().isEmpty()) {
 				st.createGroup(st2);
-			} else if (st.getGroup() == null && st2.getGroup() != null) {
+			} else if (st.getGroup().isEmpty() && !st2.getGroup().isEmpty()) {
 				st2.addToGroup(st);
-			} else if (st.getGroup() != null && st2.getGroup() == null) {
+			} else if (!st.getGroup().isEmpty() && st2.getGroup().isEmpty()) {
 				st.addToGroup(st2);
 			} else {
 				model.addAttribute("message", "Both students are in a group");
-				return "manageGroup";
+				return "error";
 			}
 			repo.save(st2);
 		}
 		repo.save(st);
+		model.addAttribute("group",st.getGroup());
 		return "manageGroup";
 	}
 

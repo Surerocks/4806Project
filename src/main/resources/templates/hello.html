@@ -19,9 +19,9 @@
 	<form action="#" th:action="@{/schedule}">
 		<input type="submit" value  = "Oral Presentation Availability"/>
 	</form>
-    <form th:if="${isStu} == true" action="#" th:action="@{/manageGroups}">
+  <!--  <form th:if="${isStu} == true" action="#" th:action="@{/manageGroups}">
         <input class="hello_button" type="submit" value  = "Manage Groups"/>
-    </form>
+    </form> -->
     <form th:if="${isCoor} == true" action="#" th:action="@{/studentsWithoutProjects}">
 		<input class="hello_button" type="submit" value  = "View Students Without Projects"/>
 	</form>
